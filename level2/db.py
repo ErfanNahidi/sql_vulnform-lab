@@ -19,15 +19,20 @@ def create_user_table():
 def insert_default_users():
     conn = get_connection()
     cursor = conn.cursor()
+    
     users = [
         ("admin", "admin123"),
         ("erfan", "123456"),
         ("test", "pass")
     ]
+    
     for user in users:
-        try:
-            cursor.execute("INSERT INTO users (username, password) VALUES (?, ?);", user)
-        except sqlite3.IntegrityError:
-            pass  # Ignore duplicates
+        username, password = user
+        query = f"""
+            INSERT OR IGNORE INTO users (username, password)
+            VALUES ('{username}', '{password}');
+        """
+        cursor.execute(query)
+    
     conn.commit()
     conn.close()
