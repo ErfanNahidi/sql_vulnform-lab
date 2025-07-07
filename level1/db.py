@@ -1,7 +1,7 @@
 import sqlite3
 
 def get_connection():
-    conn = sqlite3.connect("/home/crow/Documents/CS_File/SEC_LABS/SQL_INJECTION/LAB1/users.db", check_same_thread=False)
+    conn = sqlite3.connect("level1.db", check_same_thread=False)
     return conn
 
 def create_table():
